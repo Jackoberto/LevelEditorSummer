@@ -14,17 +14,41 @@ public class Editor : MonoBehaviour {
     public Button incrementCurrentMapButton;
     public Text editorModeLabel;
     public GameObject[] tileGameObjects;
-    public GameObject[] prefabGameObjects;
+    public List<GameObject> prefabGameObjects = new List<GameObject>();
 	private SpriteRenderer rend;
 	private Grid grid;
 	private Tilemap[] maps;
 	private Tilemap map;
 	private int tileNum;
+	private int prefabNum;
 	private Vector3Int lastPosition;
 	private int currentMap;
 	private EditorMode editorMode;
+	private GameObject currentPrefab;
 
 	public EditorMode EditorMode => editorMode;
+
+	private int PrefabNum
+	{
+		get => prefabNum;
+		set
+		{
+			prefabNum = value;
+			if (prefabNum >= editorPrefabs.Prefabs.Length)
+				prefabNum = 0;
+			if (currentPrefab != null)
+			{
+				prefabGameObjects.Remove(currentPrefab);
+				Destroy(currentPrefab);
+			}
+			currentPrefab = Instantiate(editorPrefabs[prefabNum].prefab);
+			foreach (var monoBehaviour in currentPrefab.GetComponentsInChildren<MonoBehaviour>())
+			{
+				monoBehaviour.enabled = false;
+			}
+			prefabGameObjects.Add(currentPrefab);
+		}
+	}
 
 	public void IncrementEditorMode()
 	{
@@ -51,7 +75,10 @@ public class Editor : MonoBehaviour {
 				ToggleAll(tileGameObjects);
 				break;
 			case EditorMode.PrefabPlacing:
+			{
 				ToggleAll(prefabGameObjects);
+				PrefabNum = PrefabNum;
+			}
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -75,6 +102,7 @@ public class Editor : MonoBehaviour {
 	
 	void Start ()
 	{
+		Physics2D.simulationMode = SimulationMode2D.Script;
 		InitializeFields();
 		InitButtons();
 	}
@@ -130,7 +158,7 @@ public class Editor : MonoBehaviour {
 
 	private void ChoosePrefab(int temp)
 	{
-		throw new NotImplementedException();
+		PrefabNum = temp;
 	}
 
 	private void InitializeFields()
@@ -146,7 +174,35 @@ public class Editor : MonoBehaviour {
 	{
 		if (EditorMode == EditorMode.TilePlacing)
 			TilePlacing();
+		if (EditorMode == EditorMode.PrefabPlacing)
+			PrefabPlacing();
     }
+
+	private void PrefabPlacing()
+	{
+		var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		var worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
+		var overUI = IsPointerOverUI();
+		var placingMode = ValidMousePosition(Camera.main.ScreenToViewportPoint(Input.mousePosition));
+		if (placingMode)
+		{
+			if (Input.GetKeyDown(KeyCode.Mouse0) && !overUI)
+			{
+				Instantiate(currentPrefab, worldPoint,
+					editorPrefabs[PrefabNum].prefab.transform.rotation);
+			}
+		}
+		if (!overUI)
+		{
+			rend.enabled = true;
+			currentPrefab.transform.position = worldPoint;
+		}
+		else
+		{
+			rend.enabled = true;
+			currentPrefab.transform.position = worldPoint;
+		}
+	}
 
 	private void TilePlacing()
 	{
@@ -270,6 +326,11 @@ public class Editor : MonoBehaviour {
     {
 	    tileNum = chosenTile;
     }
+
+	private void OnDestroy()
+	{
+		Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
+	}
 }
 
 public enum EditorMode

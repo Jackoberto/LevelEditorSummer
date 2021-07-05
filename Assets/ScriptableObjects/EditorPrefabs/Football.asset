@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b7111acb4c4f6191b6bb71292efad6, type: 3}
-  m_Name: EditorPrefabList
+  m_Script: {fileID: 11500000, guid: dd54ae7a572f4d5fabf467d0a613fc61, type: 3}
+  m_Name: Football
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 11400000, guid: 1dbe6f53ce543ba469b9ca81120ae844, type: 2}
-  - {fileID: 11400000, guid: 5021551a25036a24bb8277b92ae0f18e, type: 2}
+  prefab: {fileID: 9044869368294302937, guid: 2ca494bc4dca34e4bb24fba6df54bd27, type: 3}
+  previewImage: {fileID: 21300000, guid: ddfe827ad1c04254887a8cb63f72fe3f, type: 2}

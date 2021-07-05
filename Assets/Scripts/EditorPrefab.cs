@@ -24,7 +24,7 @@ public class EditorPrefab : ScriptableObject
                   UnityEditor.AssetDatabase.CreateFolder("Assets", "Resources");
             if (!UnityEditor.AssetDatabase.IsValidFolder("Assets/Resources/PreviewImages"))
                   UnityEditor.AssetDatabase.CreateFolder("Assets/Resources", "PreviewImages");
-            var texture2D = UnityEditor.AssetPreview.GetMiniThumbnail(prefab);
+            var texture2D = UnityEditor.AssetPreview.GetAssetPreview(prefab);
             Debug.Log(texture2D);
             var sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height),
                   new Vector2(.5f, .5f));
