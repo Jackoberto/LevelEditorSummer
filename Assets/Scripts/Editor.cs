@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -9,6 +11,9 @@ public class Editor : MonoBehaviour {
     public GameObject mouseTile, defaultImage, tilesMaster;
     public Text currentMapNum;
     public Button incrementCurrentMapButton;
+    public Text editorModeLabel;
+    public GameObject[] tileGameObjects;
+    public GameObject[] prefabGameObjects;
 	private SpriteRenderer rend;
 	private Grid grid;
 	private Tilemap[] maps;
@@ -16,6 +21,51 @@ public class Editor : MonoBehaviour {
 	private int tileNum;
 	private Vector3Int lastPosition;
 	private int currentMap;
+	private EditorMode editorMode;
+
+	public EditorMode EditorMode => editorMode;
+
+	public void IncrementEditorMode()
+	{
+		switch (editorMode)
+		{
+			case EditorMode.TilePlacing:
+			{
+				editorMode = EditorMode.PrefabPlacing;
+				ToggleAll(tileGameObjects);
+                break;
+			}
+			case EditorMode.PrefabPlacing:
+			{
+				editorMode = EditorMode.TilePlacing;
+				ToggleAll(prefabGameObjects);
+				break;
+			}
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+		switch (editorMode)
+		{
+			case EditorMode.TilePlacing:
+				ToggleAll(tileGameObjects);
+				break;
+			case EditorMode.PrefabPlacing:
+				ToggleAll(prefabGameObjects);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+
+		editorModeLabel.text = editorMode.ToString();
+	}
+
+	private void ToggleAll(IEnumerable<GameObject> gameObjects)
+	{
+		foreach (var go in gameObjects)
+		{
+			go.SetActive(!go.activeSelf);
+		}
+	}
 
 	private bool ValidMousePosition(Vector3 mousePosScreen)
 	{
@@ -69,6 +119,7 @@ public class Editor : MonoBehaviour {
 
 	private void InitializeFields()
 	{
+		editorModeLabel.text = editorMode.ToString();
 		incrementCurrentMapButton.onClick.AddListener(IncrementCurrentMap);
 		grid = GetComponentInChildren<Grid>();
 		maps = GetComponentsInChildren<Tilemap>();
@@ -77,7 +128,8 @@ public class Editor : MonoBehaviour {
 	
 	void Update()
 	{
-		TilePlacing();
+		if (EditorMode == EditorMode.TilePlacing)
+			TilePlacing();
     }
 
 	private void TilePlacing()
@@ -206,4 +258,10 @@ public class Editor : MonoBehaviour {
     {
 	    tileNum = chosenTile;
     }
+}
+
+public enum EditorMode
+{
+	TilePlacing,
+	PrefabPlacing
 }
