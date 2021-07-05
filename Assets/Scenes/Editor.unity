@@ -560,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &302213986
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3155,16 +3155,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableTiles: {fileID: 11400000, guid: 27dc9332b46e50e4dbb7eb4dea16da64, type: 2}
+  editorPrefabs: {fileID: 11400000, guid: 3aab80aa2c1ddaf4caf83d598478d1df, type: 2}
   mouseTile: {fileID: 1091790661}
   defaultImage: {fileID: 7960269032017752806, guid: 04ea4fb1166b99240b07894970515f71, type: 3}
   tilesMaster: {fileID: 326820527}
+  prefabMaster: {fileID: 470290501}
   currentMapNum: {fileID: 2118858346}
   incrementCurrentMapButton: {fileID: 497645383}
   editorModeLabel: {fileID: 2059266977}
   tileGameObjects:
   - {fileID: 1988081081}
   - {fileID: 1091790661}
-  prefabGameObjects: []
+  prefabGameObjects:
+  - {fileID: 302213985}
 --- !u!1 &1647912297
 GameObject:
   m_ObjectHideFlags: 0

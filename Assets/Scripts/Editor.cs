@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class Editor : MonoBehaviour {
 	
 	public TileList availableTiles;
-    public GameObject mouseTile, defaultImage, tilesMaster;
+	public EditorPrefabList editorPrefabs;
+    public GameObject mouseTile, defaultImage, tilesMaster, prefabMaster;
     public Text currentMapNum;
     public Button incrementCurrentMapButton;
     public Text editorModeLabel;
@@ -115,6 +116,21 @@ public class Editor : MonoBehaviour {
 			image.color = availableTiles[i].color;
 		}
 		ChooseTile(0);
+		
+		for (var i = 0; i < editorPrefabs.Prefabs.Length; i++)
+		{
+			var instance = Instantiate(defaultImage, prefabMaster.transform);
+			var image = instance.GetComponent<Image>();
+			var temp = i;
+			instance.GetComponent<Button>().onClick.AddListener(() => { ChoosePrefab(temp); });
+			instance.name = editorPrefabs[i].name;
+			image.sprite = editorPrefabs[i].previewImage;
+		}
+	}
+
+	private void ChoosePrefab(int temp)
+	{
+		throw new NotImplementedException();
 	}
 
 	private void InitializeFields()
@@ -146,7 +162,6 @@ public class Editor : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.LeftShift) && !overUI)
 			{
-				print(position);
 				var xDiff = position.x - lastPosition.x;
 				var yDiff = position.y - lastPosition.y;
 				Debug.Log($"xDiff: {xDiff}\n " + $"yDiff: {yDiff}");
@@ -209,11 +224,8 @@ public class Editor : MonoBehaviour {
 
 			else if (Input.GetKey(KeyCode.Mouse0) && !overUI)
 			{
-				print(position);
 				map.SetTile(position, availableTiles[tileNum]);
 				lastPosition = position;
-				var type = map.GetTile(position);
-				print(type);
 			}
 
 			if (Input.GetKey(KeyCode.Mouse1) && !overUI)
