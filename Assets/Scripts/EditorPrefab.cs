@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "LevelEditor/EditorPrefab")]
 public class EditorPrefab : ScriptableObject
@@ -25,11 +26,10 @@ public class EditorPrefab : ScriptableObject
             if (!UnityEditor.AssetDatabase.IsValidFolder("Assets/Resources/PreviewImages"))
                   UnityEditor.AssetDatabase.CreateFolder("Assets/Resources", "PreviewImages");
             var texture2D = UnityEditor.AssetPreview.GetAssetPreview(prefab);
-            Debug.Log(texture2D);
-            var sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height),
-                  new Vector2(.5f, .5f));
-            UnityEditor.AssetDatabase.CreateAsset(sprite, $"Assets/Resources/PreviewImages/{prefab.name}_Preview.asset");
-            previewImage = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Resources/PreviewImages/{prefab.name}_Preview.asset");
+            var filePath = $"Resources/PreviewImages/{name}_Preview";
+            File.WriteAllBytes(Path.Combine(Application.dataPath, $"{filePath}.png"),texture2D.EncodeToPNG());
+            UnityEditor.AssetDatabase.Refresh();
+            previewImage = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/{filePath}.png");
       }
       #endif
 }
