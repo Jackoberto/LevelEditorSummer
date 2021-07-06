@@ -460,7 +460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 29.999878, y: 0}
+  m_AnchoredPosition: {x: 30, y: 0}
   m_SizeDelta: {x: 300, y: 210}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &288437950
@@ -2562,7 +2562,7 @@ GameObject:
   - component: {fileID: 1384339806}
   - component: {fileID: 1384339805}
   m_Layer: 5
-  m_Name: +
+  m_Name: ChangeTileModeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3120,6 +3120,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1635355097}
   - component: {fileID: 1635355098}
+  - component: {fileID: 1635355100}
+  - component: {fileID: 1635355099}
   m_Layer: 0
   m_Name: EditorMaster
   m_TagString: Untagged
@@ -3168,6 +3170,44 @@ MonoBehaviour:
   - {fileID: 1091790661}
   prefabGameObjects:
   - {fileID: 302213985}
+--- !u!114 &1635355099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635355096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1917507d4cb4f6f84a2542ba19f44ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorPrefabs: {fileID: 11400000, guid: 3aab80aa2c1ddaf4caf83d598478d1df, type: 2}
+  defaultImage: {fileID: 7960269032017752806, guid: 04ea4fb1166b99240b07894970515f71, type: 3}
+  prefabMaster: {fileID: 470290501}
+  prefabGameObjects:
+  - {fileID: 302213985}
+--- !u!114 &1635355100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635355096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7d8a8cc75340a49dd04756c37329d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseTile: {fileID: 1091790661}
+  tilesMaster: {fileID: 326820527}
+  defaultImage: {fileID: 7960269032017752806, guid: 04ea4fb1166b99240b07894970515f71, type: 3}
+  currentMapNum: {fileID: 2118858346}
+  availableTiles: {fileID: 11400000, guid: 27dc9332b46e50e4dbb7eb4dea16da64, type: 2}
+  incrementCurrentMapButton: {fileID: 497645383}
+  tileGameObjects:
+  - {fileID: 1988081081}
+  - {fileID: 1091790661}
 --- !u!1 &1647912297
 GameObject:
   m_ObjectHideFlags: 0
