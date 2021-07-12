@@ -1,13 +1,21 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "LevelEditor/EditorPrefab")]
 public class EditorPrefab : ScriptableObject
 {
       public GameObject prefab;
+      public EditorPrefabVisual editorPrefabVisual;
       [HideInInspector] public Sprite previewImage;
+      [HideInInspector] public string id;
 
       #if UNITY_EDITOR
+      private void Awake()
+      {
+            id = Guid.NewGuid().ToString();
+      }
+
       private void OnValidate()
       {
             if (prefab == null)

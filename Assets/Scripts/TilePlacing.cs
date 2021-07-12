@@ -67,7 +67,6 @@ public class TilePlacing : MonoBehaviour, IEditorMode
 			{
 				var xDiff = position.x - lastPosition.x;
 				var yDiff = position.y - lastPosition.y;
-				Debug.Log($"xDiff: {xDiff}\n " + $"yDiff: {yDiff}");
 				if (xDiff < 0 && yDiff < 0)
 				{
 					map.BoxFill(position, availableTiles[tileNum], position.x, position.y, lastPosition.x, lastPosition.y);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
     public List<GameObject> prefabGameObjects = new List<GameObject>();
     private Editor editor;
     private int prefabNum;
-    private GameObject currentPrefab;
+    private EditorPrefabVisual currentPrefab;
 
     public string Name => "PrefabPlacing";
     
@@ -23,15 +24,15 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
                 prefabNum = 0;
             if (currentPrefab != null)
             {
-                prefabGameObjects.Remove(currentPrefab);
+                prefabGameObjects.Remove(currentPrefab.gameObject);
                 Destroy(currentPrefab);
             }
-            currentPrefab = Instantiate(editorPrefabs[prefabNum].prefab);
+            currentPrefab = Instantiate(editorPrefabs[prefabNum].editorPrefabVisual);
             foreach (var monoBehaviour in currentPrefab.GetComponentsInChildren<MonoBehaviour>())
             {
                 monoBehaviour.enabled = false;
             }
-            prefabGameObjects.Add(currentPrefab);
+            prefabGameObjects.Add(currentPrefab.gameObject);
         }
     }
     
@@ -70,8 +71,9 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !overUI)
             {
-                Instantiate(currentPrefab, worldPoint,
-                    editorPrefabs[PrefabNum].prefab.transform.rotation);
+                var instance = Instantiate(currentPrefab, worldPoint,
+                    editorPrefabs[PrefabNum].editorPrefabVisual.transform.rotation);
+                instance.EditorPrefab = editorPrefabs[PrefabNum];
             }
         }
         currentPrefab.transform.position = worldPoint;

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Football
   m_EditorClassIdentifier: 
   prefab: {fileID: 9044869368294302937, guid: 2ca494bc4dca34e4bb24fba6df54bd27, type: 3}
-  previewImage: {fileID: 21300000, guid: ddfe827ad1c04254887a8cb63f72fe3f, type: 2}
+  editorPrefabVisual: {fileID: 1442190313698709507, guid: 013770574e701ed409f670e054c001c6, type: 3}
+  previewImage: {fileID: 21300000, guid: fd4b8862531f66644a267e0ba2c4af20, type: 3}

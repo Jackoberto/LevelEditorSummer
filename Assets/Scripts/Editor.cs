@@ -32,7 +32,6 @@ public class Editor : MonoBehaviour {
 	
 	void Start ()
 	{
-		Physics2D.simulationMode = SimulationMode2D.Script;
 		InitializeFields();
 	}
 
@@ -74,9 +73,4 @@ public class Editor : MonoBehaviour {
 	    var eventSystem = EventSystem.current;
 	    return eventSystem.IsPointerOverGameObject();
     }
-
-	private void OnDestroy()
-	{
-		Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
-	}
 }
