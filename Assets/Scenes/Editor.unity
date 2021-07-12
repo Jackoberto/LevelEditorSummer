@@ -3209,6 +3209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: C:\Users\Jack Karlsson\Documents\LevelEditorSaves\1.json
+  tileList: {fileID: 11400000, guid: 27dc9332b46e50e4dbb7eb4dea16da64, type: 2}
+  prefabList: {fileID: 11400000, guid: 3aab80aa2c1ddaf4caf83d598478d1df, type: 2}
 --- !u!1 &1647912297
 GameObject:
   m_ObjectHideFlags: 0

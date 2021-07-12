@@ -81,8 +81,12 @@ public struct SerializedVector2Int
         this.y = y;
     }
 
+    public static SerializedVector2Int operator+(SerializedVector2Int lValue, SerializedVector2Int rValue) =>
+        new SerializedVector2Int(lValue.x + rValue.x, lValue.y + rValue.y);
     public static implicit operator SerializedVector2Int(Vector2Int vector2Int) => new SerializedVector2Int(vector2Int);
     public static implicit operator SerializedVector2Int(Vector3Int vector3Int) => new SerializedVector2Int(vector3Int);
+    public static implicit operator Vector3Int(SerializedVector2Int vector3Int) => new Vector3Int(vector3Int.x, vector3Int.y, 0);
+    public static implicit operator Vector2Int(SerializedVector2Int vector3Int) => new Vector2Int(vector3Int.x, vector3Int.y);
 }
 
 [Serializable]
@@ -108,4 +112,8 @@ public struct SerializedVector2
     
     public static implicit operator SerializedVector2(Vector2 vector2) => new SerializedVector2(vector2);
     public static implicit operator SerializedVector2(Vector3 vector3) => new SerializedVector2(vector3);
+    public static implicit operator Vector3(SerializedVector2 serializedVector2) =>
+        new Vector3(serializedVector2.x, serializedVector2.y, 0);
+    public static implicit operator Vector2(SerializedVector2 serializedVector2) =>
+        new Vector2(serializedVector2.x, serializedVector2.y);
 }
