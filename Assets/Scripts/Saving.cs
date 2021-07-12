@@ -10,7 +10,7 @@ public class Saving : MonoBehaviour
     public void Save()
     {
         var maps = GetComponentsInChildren<Tilemap>();
-        var saveFile = new SaveFile(maps, FindObjectsOfType<EditorPrefabVisual>().Where(prefab => prefab.EditorPrefab != null).Select(prefab => prefab.EditorPrefab));
+        var saveFile = new SaveFile(maps, FindObjectsOfType<EditorPrefabVisual>().Where(prefab => prefab.EditorPrefab != null));
         var json = JsonUtility.ToJson(saveFile);
         File.WriteAllText(path, json);
     }

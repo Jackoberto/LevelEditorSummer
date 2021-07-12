@@ -12,7 +12,7 @@ public class EditorPrefab : ScriptableObject
 
       #if UNITY_EDITOR
       private void Awake()
-      {
+      { 
             id = Guid.NewGuid().ToString();
       }
 
@@ -23,6 +23,11 @@ public class EditorPrefab : ScriptableObject
             if (previewImage == null)
             {
                   CreateSprite();
+            }
+
+            if (string.IsNullOrEmpty(id))
+            {
+                  id = Guid.NewGuid().ToString();
             }
       }
       

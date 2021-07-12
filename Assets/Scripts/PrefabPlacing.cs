@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +24,7 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
             if (currentPrefab != null)
             {
                 prefabGameObjects.Remove(currentPrefab.gameObject);
-                Destroy(currentPrefab);
+                Destroy(currentPrefab.gameObject);
             }
             currentPrefab = Instantiate(editorPrefabs[prefabNum].editorPrefabVisual);
             foreach (var monoBehaviour in currentPrefab.GetComponentsInChildren<MonoBehaviour>())
