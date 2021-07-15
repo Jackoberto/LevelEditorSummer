@@ -8,15 +8,19 @@ public class EditorCamera : MonoBehaviour {
     public float maxZoomOut = 100;
     private float originalSpeed;
     private Vector3 startPos;
+    private SaveMenu menu;
 
     private void Start()
     {
+	    menu = FindObjectOfType<SaveMenu>(true);
 	    originalSpeed = speed;
 	    startPos = transform.position;
     }
 
     void Update ()
 	{
+		if (AnyMenuIsOpen)
+			return;
 		var mousePosScreen = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 		speed = Input.GetKey(KeyCode.LeftShift) ? originalSpeed * 2 : originalSpeed;
 		MoveCameraWithKeys();
@@ -25,7 +29,9 @@ public class EditorCamera : MonoBehaviour {
 			MoveCameraWithMouse(mousePosScreen);
 	}
 
-	void ScrollFunction(Vector3 mousePosScreen)
+    private bool AnyMenuIsOpen => menu.gameObject.activeSelf;
+
+    void ScrollFunction(Vector3 mousePosScreen)
     {
 	    if (mousePosScreen.x < 0.9)
 		{

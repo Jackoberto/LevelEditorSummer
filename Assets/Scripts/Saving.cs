@@ -1,39 +1,53 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Saving : MonoBehaviour
 {
-    public string path;
     public TileList tileList;
     public EditorPrefabList prefabList;
-    [ContextMenu("Save")]
-    public void Save()
+    private ISaveSystem saveSystem;
+
+    private void Awake()
+    {
+        saveSystem = new SaveSystem();
+    }
+    
+    public void Save(string mapName)
     {
         var maps = GetComponentsInChildren<Tilemap>();
         var saveFile = new SaveFile(maps, FindObjectsOfType<EditorPrefabVisual>().Where(prefab => prefab.EditorPrefab != null));
         var json = JsonUtility.ToJson(saveFile);
-        File.WriteAllText(path, json);
+        saveSystem.Save(mapName, json);
     }
-    [ContextMenu("Load")]
-    public void Load()
+    
+    public void Load(string mapName)
     {
-        var json = File.ReadAllText(path);
+        var json = saveSystem.Load(mapName);
         var saveFile = JsonUtility.FromJson<SaveFile>(json);
         PopulateLevel(saveFile);
     }
-    [ContextMenu("LoadInEditor")]
-    public void LoadInEditor()
+    
+    public void LoadInEditor(string mapName)
     {
-        var json = File.ReadAllText(path);
+        var json = saveSystem.Load(mapName);
         var saveFile = JsonUtility.FromJson<SaveFile>(json);
         PopulateLevelInEditor(saveFile);
+    }
+
+    public string[] GetAllMapNames()
+    {
+        return saveSystem.GetAllMapNames();
     }
     
     private void PopulateLevelInEditor(SaveFile saveFile)
     {
         var maps = GetComponentsInChildren<Tilemap>();
+        var currentPrefabs = FindObjectsOfType<EditorPrefabVisual>();
+        foreach (var editorPrefab in currentPrefabs)
+        {
+            Destroy(editorPrefab.gameObject);
+        }
         foreach (var serializedEditorPrefab in saveFile.editorPrefabs)
         {
             if (prefabList.PrefabDictionary.TryGetValue(serializedEditorPrefab.id, out var editorPrefab))
