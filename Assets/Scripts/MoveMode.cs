@@ -38,10 +38,6 @@ public class MoveMode : MonoBehaviour, IEditorMode
         {
             var rayOrigin = mainCamera.ScreenToWorldPoint(mousePos);
             var hitInfo = Physics2D.Raycast(rayOrigin,Vector2.zero);
-            if (hitInfo)
-            {
-                Debug.Log(hitInfo.transform.gameObject.name);
-            }
             if (hitInfo.transform != null && hitInfo.transform.gameObject.TryGetComponent<EditorPrefabVisual>(out var prefabVisual))
             {
                 previousPoint = new PreviousPoint(worldPoint, hitInfo.transform);
