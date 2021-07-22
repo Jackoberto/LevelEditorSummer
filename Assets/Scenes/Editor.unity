@@ -4167,6 +4167,7 @@ GameObject:
   - component: {fileID: 1635355098}
   - component: {fileID: 1635355100}
   - component: {fileID: 1635355099}
+  - component: {fileID: 1635355102}
   - component: {fileID: 1635355101}
   m_Layer: 0
   m_Name: EditorMaster
@@ -4255,6 +4256,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileList: {fileID: 11400000, guid: 27dc9332b46e50e4dbb7eb4dea16da64, type: 2}
   prefabList: {fileID: 11400000, guid: 3aab80aa2c1ddaf4caf83d598478d1df, type: 2}
+--- !u!114 &1635355102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635355096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa070b86a10e9934d8ea5fe7adbd60c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1647912297
 GameObject:
   m_ObjectHideFlags: 0
