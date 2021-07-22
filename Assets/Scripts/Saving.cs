@@ -46,7 +46,8 @@ public class Saving : MonoBehaviour
         var currentPrefabs = FindObjectsOfType<EditorPrefabVisual>();
         foreach (var editorPrefab in currentPrefabs)
         {
-            Destroy(editorPrefab.gameObject);
+            if (editorPrefab.EditorPrefab != null)
+                Destroy(editorPrefab.gameObject);
         }
         foreach (var serializedEditorPrefab in saveFile.editorPrefabs)
         {
