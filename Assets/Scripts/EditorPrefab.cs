@@ -7,8 +7,11 @@ public class EditorPrefab : ScriptableObject
 {
       public GameObject prefab;
       public EditorPrefabVisual editorPrefabVisual;
+      [SerializeField] private string displayName;
       [HideInInspector] public Sprite previewImage;
       [HideInInspector] public string id;
+
+      public string DisplayName => displayName;
 
       #if UNITY_EDITOR
       private void Awake()

@@ -15,6 +15,8 @@ public class SaveSystem : ISaveSystem
         Directory.CreateDirectory(FullDirectoryPath);
     }
 
+    public string DirectoryPath => FullDirectoryPath;
+
     public string[] GetAllMapNames()
     {
         if (NoMapDirectory)

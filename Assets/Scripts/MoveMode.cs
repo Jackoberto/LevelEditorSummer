@@ -5,7 +5,6 @@ public class MoveMode : MonoBehaviour, IEditorMode
     private PreviousPoint previousPoint;
     private Camera mainCamera;
     private Editor editor;
-    private Transform objectToMove;
     public string Name => "Move Tool";
 
     public void Initialize(Editor editor)
@@ -57,16 +56,5 @@ public class MoveMode : MonoBehaviour, IEditorMode
         {
             previousPoint = null;
         }
-    }
-}
-
-public class PreviousPoint
-{
-    public Vector3 Point;
-    public Transform Transform;
-    public PreviousPoint(Vector3 point, Transform transform)
-    {
-        Point = point;
-        Transform = transform;
     }
 }

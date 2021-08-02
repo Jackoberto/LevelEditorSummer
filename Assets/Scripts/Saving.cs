@@ -39,6 +39,11 @@ public class Saving : MonoBehaviour
     {
         return saveSystem.GetAllMapNames();
     }
+
+    public void OpenSavesFolder()
+    {
+        Application.OpenURL(saveSystem.DirectoryPath);
+    }
     
     private void PopulateLevelInEditor(SaveFile saveFile)
     {

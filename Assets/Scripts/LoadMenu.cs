@@ -6,11 +6,11 @@ public class LoadMenu : MonoBehaviour
     public Button buttonPrefab;
     public Transform buttonParent;
     private SaveMenu saveMenu;
-    private Saving saveSystem;
-    public void Open(Saving saveSystem, SaveMenu saveMenu)
+    private Saving saving;
+    public void Open(Saving saving, SaveMenu saveMenu)
     {
         this.saveMenu = saveMenu;
-        this.saveSystem = saveSystem;
+        this.saving = saving;
         gameObject.SetActive(true);
         GenerateLevelButtons();
     }
@@ -27,9 +27,25 @@ public class LoadMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void OpenSavesFolder()
+    {
+        saving.OpenSavesFolder();
+    }
+    
+    public void Refresh()
+    {
+        var children = buttonParent.GetComponentsInChildren<Transform>();
+        foreach (var child in children)
+        {
+            if (child != buttonParent)
+                Destroy(child.gameObject);
+        }
+        GenerateLevelButtons();
+    }
+
     private void GenerateLevelButtons()
     {
-        var maps = saveSystem.GetAllMapNames();
+        var maps = saving.GetAllMapNames();
         foreach (var map in maps)
         {
             var instance = Instantiate(buttonPrefab, buttonParent);
@@ -41,6 +57,6 @@ public class LoadMenu : MonoBehaviour
     private void LoadAndClose(string mapName)
     {
         Close();
-        saveSystem.LoadInEditor(mapName);
+        saving.LoadInEditor(mapName);
     }
 }
