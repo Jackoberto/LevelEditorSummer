@@ -21,6 +21,7 @@ public class SerializedEditorPrefab
 {
     public SerializedVector2 position;
     public string id;
+    public SerializedProperty[] serializedProperties;
     public SerializedEditorPrefab(EditorPrefabVisual editorPrefab)
     {
         position = editorPrefab.transform.position;
@@ -116,4 +117,12 @@ public struct SerializedVector2
         new Vector3(serializedVector2.x, serializedVector2.y, 0);
     public static implicit operator Vector2(SerializedVector2 serializedVector2) =>
         new Vector2(serializedVector2.x, serializedVector2.y);
+}
+
+[Serializable]
+public class SerializedProperty
+{
+    public string value;
+    public string component;
+    public string type;
 }

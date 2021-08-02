@@ -27,10 +27,6 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
                 Destroy(currentPrefab.gameObject);
             }
             currentPrefab = Instantiate(editorPrefabs[prefabNum].editorPrefabVisual);
-            foreach (var monoBehaviour in currentPrefab.GetComponentsInChildren<MonoBehaviour>())
-            {
-                monoBehaviour.enabled = false;
-            }
             prefabGameObjects.Add(currentPrefab.gameObject);
         }
     }
