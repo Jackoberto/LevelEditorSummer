@@ -23,7 +23,8 @@ public class EditorPrefabVisual : MonoBehaviour
                 .GetType()
                 .GetFields()
                 .Where(field =>
-                    field.GetCustomAttributes(typeof(EditorPropertyAttribute), true).Length == 1);
+                    field.GetCustomAttributes(typeof(EditorPropertyAttribute), true).Length == 1)
+                .Where(field => PropertySerializers.Dictionary.ContainsKey(field.FieldType));
             foreach (var field in fieldInfos)
             {
                 SerializedProperties.Add(new SerializedProperty
