@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   someValue: 10
+  someInvalidValue: I'm a string and now I can be serialized
 --- !u!1 &9044869369058354493
 GameObject:
   m_ObjectHideFlags: 0
