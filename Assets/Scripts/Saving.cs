@@ -55,6 +55,7 @@ public class Saving : MonoBehaviour
             {
                 var instance = Instantiate(editorPrefab.editorPrefabVisual, serializedEditorPrefab.position, editorPrefab.prefab.transform.rotation);
                 instance.EditorPrefab = editorPrefab;
+                instance.SerializedProperties = serializedEditorPrefab.serializedProperties;
             }
         }
 
@@ -71,7 +72,16 @@ public class Saving : MonoBehaviour
         {
             if (prefabList.PrefabDictionary.TryGetValue(serializedEditorPrefab.id, out var editorPrefab))
             {
-                Instantiate(editorPrefab.prefab, serializedEditorPrefab.position, editorPrefab.prefab.transform.rotation);
+                var instance = Instantiate(editorPrefab.prefab, serializedEditorPrefab.position, editorPrefab.prefab.transform.rotation);
+                foreach (var serializedProperty in serializedEditorPrefab.serializedProperties)
+                {
+                    var component = instance.GetComponents(serializedProperty.ComponentType).First();
+                    var fieldInfo = component
+                        .GetType()
+                        .GetFields()
+                        .First(field => field.Name == serializedProperty.name);
+                    fieldInfo.SetValue(component, PropertySerializers.Dictionary[serializedProperty.Type].Deserialize(serializedProperty.value));
+                }
             }
         }
 

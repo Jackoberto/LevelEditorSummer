@@ -8,7 +8,7 @@ public class EditorPrefabVisual : MonoBehaviour
     [NonSerialized] public EditorPrefab EditorPrefab;
     public List<SerializedProperty> SerializedProperties;
 
-    private void Start()
+    public void Setup()
     {
         if (EditorPrefab != null && EditorPrefab.prefab != null)
             GenerateSerializedProperties();
@@ -30,8 +30,11 @@ public class EditorPrefabVisual : MonoBehaviour
                 SerializedProperties.Add(new SerializedProperty
                 {
                     value = PropertySerializers.Dictionary[field.FieldType].Serialize(field.GetValue(monoBehaviour)),
-                    component = monoBehaviour.GetType().ToString(),
-                    type = field.FieldType.ToString()
+                    componentAssembly = monoBehaviour.GetType().Assembly.ToString(),
+                    componentName = monoBehaviour.GetType().ToString(),
+                    typeName = field.FieldType.ToString(),
+                    typeAssembly = field.FieldType.Assembly.ToString(),
+                    name = field.Name
                 });
             }
         }

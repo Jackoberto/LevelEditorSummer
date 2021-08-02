@@ -19,7 +19,7 @@ public class TilePlacing : MonoBehaviour, IEditorMode
     private int currentMap;
     private SpriteRenderer rend;
 
-    public string Name => "TilePlacing";
+    public string Name => "Tile Placing";
 
     public void Initialize(Editor editor)
     {

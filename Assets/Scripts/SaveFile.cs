@@ -21,11 +21,12 @@ public class SerializedEditorPrefab
 {
     public SerializedVector2 position;
     public string id;
-    public SerializedProperty[] serializedProperties;
+    public List<SerializedProperty> serializedProperties;
     public SerializedEditorPrefab(EditorPrefabVisual editorPrefab)
     {
         position = editorPrefab.transform.position;
         id = editorPrefab.EditorPrefab.id;
+        serializedProperties = editorPrefab.SerializedProperties;
     }
 }
 
@@ -123,6 +124,14 @@ public struct SerializedVector2
 public class SerializedProperty
 {
     public string value;
-    public string component;
-    public string type;
+    public string componentName;
+    public string componentAssembly;
+    public string typeName;
+    public string typeAssembly;
+    public string name;
+    private Type _componentType;
+    private Type _type;
+
+    public Type Type => _type ??= Type.GetType($"{typeName}, {typeAssembly}");
+    public Type ComponentType => _componentType ??= Type.GetType($"{componentName}, {componentAssembly}");
 }

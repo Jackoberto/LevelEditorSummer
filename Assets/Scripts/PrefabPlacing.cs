@@ -11,7 +11,7 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
     private int prefabNum;
     private EditorPrefabVisual currentPrefab;
 
-    public string Name => "PrefabPlacing";
+    public string Name => "Prefab Placing";
     
     private int PrefabNum
     {
@@ -69,6 +69,7 @@ public class PrefabPlacing : MonoBehaviour, IEditorMode
                 var instance = Instantiate(currentPrefab, worldPoint,
                     editorPrefabs[PrefabNum].editorPrefabVisual.transform.rotation);
                 instance.EditorPrefab = editorPrefabs[PrefabNum];
+                instance.Setup();
             }
         }
         currentPrefab.transform.position = worldPoint;
