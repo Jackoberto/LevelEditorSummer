@@ -1,20 +1,20 @@
 ﻿using System;
 
-public class StringPropertySerializer : EditorPropertySerializer
+public class StringPropertySerializer : IEditorPropertySerializer
 {
-    public override Type SerializedType => typeof(string);
+    public Type SerializedType => typeof(string);
 
-    public override bool IsValid(string value)
+    public bool IsValid(string value)
     {
         return true;
     }
 
-    public override string Serialize(object value)
+    public string Serialize(object value)
     {
         return value.ToString();
     }
 
-    public override object Deserialize(string value)
+    public object Deserialize(string value)
     {
         return value;
     }
